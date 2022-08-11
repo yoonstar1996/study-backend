@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/yoonstar1996/study-backend#readme",
   "dependencies": {
+    "ejs": "^3.1.8",
     "express": "^4.18.1"
   }
 }

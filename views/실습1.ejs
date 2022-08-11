@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div>ejs실습1입니다.</div>
+
+        <% for(var i=0; i<5; i++) { %>
+            <div>for문 <%=i%>입니다</div>
+        <% } %>
+
+        <% if (false){ %>
+            <%console.log("true");%>
+        <% } else { %>
+            <% console.log("false");%>
+        <% } %>
+
+        <div>이미지 미리보기</div><hr><%-include("img.ejs")%><hr>
+
+        <a href="/test">이동으로 이동하기</a><br>
+        <a href="/img">이미지로 이동하기</a><br>
+        
+        <script>
+            for (var r = 0; r<5; r++){
+               document.write("<div>"+"for문"+r+"입니다"+"</div>");
+            }
+
+            // if (false){
+            //     console.log("true");
+            // } else {
+            //     console.log("false");
+            // }
+        </script>
+    </body>
+</html>

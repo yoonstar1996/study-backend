@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <!-- <form method="get" action="/get">
+        <input type="text" name="name">
+        <input type="text" name="gender">
+        <button type="submit">전송</button>
+        <button type="reset">리셋</button>
+    </form> -->
+
+    <!-- <form method="post" action="/post">
+        <input type="text" name="name">
+        <input type="text" name="gender">
+        <button type="submit">전송</button>
+        <button type="reset">리셋</button>
+    </form> -->
+
+    <form>
+        폼 전송 - 실습<br><br>
+        이름 : <input type="text" name="name" required><br><br>
+        성별 : 남자 <input type="radio" name="gender" value="남자" required>
+        여자 <input type="radio" name="gender" value="여자" required><br><br>
+        생년월일 <select type="select" name="birth" required>
+            <% for(var i=1950; i<2023; i++) { %>
+                <option value=<%=i%>><%=i%></option>
+            <% } %>
+        </select>년
+        <select type="select" name="month">
+            <% for(var i=1; i<13; i++) { %>
+                <option value=<%=i%>><%=i%></option>
+            <% } %>
+        </select>월
+        <select type="select" name="day">
+            <% for(var i=1; i<32; i++) { %>
+                <option value=<%=i%>><%=i%></option>
+            <% } %>
+        </select>일
+        <br><br>
+        관심사 : 여행 <input type="checkbox" name="inter" value="여행">
+        패션 <input type="checkbox" name="inter" value="패션">
+        음식 <input type="checkbox" name="inter" value="음식"><br><br>
+        <button type="button" onclick="dynamicForm()">회원가입</button>
+    </form>
+
+    <!-- <form>
+        이름 <input type="text" name="name">
+        <br>
+        성별<input type="radio" name="gender" value="남자"> 남자
+        <input type="radio" name="gender" value="여자"> 여자<br>
+        <button type="button" onclick="dynamicForm();">제출</button>
+    </form>
+    <div>
+
+    </div> -->
+    <!-- <form>
+        <input type="text" name="id" placeholder="ID"><br>
+        <input type="password" name="pw" placeholder="PW"><br>
+        <button type="button" onclick="dynamicForm()">로그인</button>
+        <div></div>
+    </form> -->
+    <script>
+        function dynamicForm(){
+            var form = document.querySelector("form");
+            // var data11 = {
+            //     ID: form.id.value,
+            //     Password: form.pw.value
+            // }
+
+            var inter = "";
+            // $("input[name=inter]:checked").each((index, object)=>{
+            //     inter += $(object).val() + ",";
+            //     if(index ==  $("input[name=inter]:checked").length -1)
+            // })
+
+            var interest = "";
+            $("input[name=interest]:checked").each((index, object)=>{
+                interest += $(object).val();
+                if(index != $("input[name=interest]:checked").length - 1) interest += ",";
+            })
+
+            var data11 = {
+                name: form.name.value,
+                gender: form.gender.value,
+                birth: form.birth.value,
+                month: form.month.value,
+                day: form.day.value,
+                inter: inter
+            }
+            
+            // $.ajax({
+            //     url:'/get/ajax',
+            //     type:'post',
+            //     data: data11,
+            //     success: function(data){
+            //         $("div").html(data.name);
+            //     }
+            // })
+            // axios({
+            //     url: "/get/axios",
+            //     method: "post", // get <> post
+            //     data: data11 // params <> data
+            // }).then((response)=>{
+            //     $("div").html(response.data);
+            // })
+            
+            axios({
+                url: "/get/axios",
+                method: "get", // get <> post
+                params: data11 // params <> data
+            }).then((response)=>{
+                console.log(response);
+            })
+        }
+    </script>
+</body>
+</html>

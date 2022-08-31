@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js" integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <!-- <form action="/upload" method="post" enctype="multipart/form-data"> 파일 한개 업로드 -->
+        <!-- <input type="file" name="userfile"> -->
+        <!-- <input type="text" name="name"> -->
+        <!-- <button type="submit">제출</button> -->
+    <!-- </form> -->
+
+    <!-- <form action="/upload" method="post" enctype="multipart/form-data"> 파일 여러개 업로드 -->
+        <!-- <input type="file" name="userfile" multiple> -->
+        <!-- <input type="text" name="name"> -->
+        <!-- <button type="submit">제출</button> -->
+    <!-- </form> -->
+
+    <!-- <form action="/upload" method="post" enctype="multipart/form-data"> 파일 여러개 업로드 -->
+        <!-- <input type="file" name="userfile"><br> -->
+        <!-- <input type="file" name="userfile1"><br> -->
+        <!-- <input type="text" name="name"> -->
+        <!-- <button type="submit">제출</button> -->
+    <!-- </form> -->
+
+    <!-- <form>
+        <input type="file" name="userfile" id="file"><br>
+        <input type="text" name="name">
+        <button type="button" onclick="fileUpload()">제출</button>
+    </form> -->
+
+    개인정보
+    <form>
+        아이디 : <input type="text" name="id"><br>
+        비밀번호 : <input type="password" name="pw"><br>
+        이름 : <input type="text" name="name"><br>
+        나이 : <input type="text" name="age"><br>
+        프로필 사진 : <input type="file" name="img" id="imgid"><br>
+        <button type="reset">리셋</button> 
+        <button type="button" onclick="signUp()">회원가입</button>
+    </form>
+    <div></div>
+
+    <script>
+        // function fileUpload(){
+        //     const formData = new FormData();
+        //     const file = document.getElementById("file");
+        //     formData.append("userfile", file.files[0])
+
+        //     axios({
+        //         headers:{
+        //             "Content-Type" : "multipart/form-data",
+        //         },
+        //         url:"/upload",
+        //         method:"post",
+        //         data: formData
+        //     }).then((response)=>{console.log(response.data);
+        //     })
+        // }
+
+        function signUp(){
+            var form = document.querySelector("form");
+            const formData = new FormData();
+            const file = document.getElementById("imgid");
+
+            formData.append('id', form.id.value);
+            formData.append("img", file.files[0]);
+
+            axios({
+                headers:{
+                    "Content-Type" : "multipart/form-data",
+                },
+                url:"/upload",
+                method:"post",
+                data: formData
+            }).then((response)=>{
+                console.log(response.data);
+                $("div").html("<img src='uploads\\"+ response.data +"'>");
+            })
+        }
+    </script>
+</body>
+</html>

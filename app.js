@@ -1,21 +1,78 @@
 const express = require("express");
 const app = express();
-
+const multer = require("multer");
+const path = require("path");
 app.set("view engine", "ejs");
 
 // app.use( express.static( 'public' ) );
 //만약, 어떤사람이 ip:port/img/cat.jpg 로 접근하면, 해당 파일을 ip:port/public/img/cat.jpg에 존재하는지 찾는다.
 app.use( '/static', express.static( 'static' ) );
 //만약, 어떤사람이 ip:port/static/img/cat.jpg 로 접근하면, 해당 파일을 ip:port/static/img/cat.jpg에 존재하는지 찾는다.
+app.use( '/uploads', express.static( 'uploads' ) );
+
+const upload = multer({
+    storage: multer.diskStorage({
+        destination(req, file, done){ /*목적지를 정해주는 함수*/
+            done( null, 'uploads/');
+        },
+        filename(req, file, done) {  /*파일 이름을 정해주는 함수*/
+            userid = req.body.id;
+            const ext = path.extname(file.originalname); /*ext = 확장자를 가져온다.*/
+            // done(null, path.basename(file.originalname, ext) /*파일 이름만 가져온다*/ + ext);
+            done(null, userid + ext);
+        },
+    }),
+    limits: { fileSize: 5*1024*1024 }, /*파일 용량 제한 5MB*/
+})
+
 
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 
+
 const port = 8000; // 3000, 8080 셋 중 하나 사용
 
+// app.get("/", (req,res)=>{
+    //     res.render("main");
+    // })
+    
 app.get("/", (req,res)=>{
-    res.render("main");
+    res.render("main2");
 })
+
+// app.post("/upload", upload.single("userfile"), (req, res)=>{ /**single메소드 사용시 한개 업로드 가능 */
+    // console.log(req.body);
+    // console.log(req.file);
+    // res.send("업로드 성공");
+// })
+
+// app.post("/upload", upload.array("userfile"), (req, res)=>{ /**array메소드 사용시 여러개 업로드 가능 */
+//     console.log(req.body);
+//     console.log(req.files);
+//     res.send("업로드 성공");
+// })
+
+// app.post("/upload", upload.fields([{name:"userfile"},{name:"userfile1"}]), (req, res)=>{ /**array메소드 사용시 여러개 업로드 가능 */
+//     console.log(req.body);
+//     console.log(req.files);
+//     res.send("업로드 성공");
+// })
+
+// app.post("/upload", upload.single("userfile"), (req, res)=>{
+//     console.log(req.body);
+//     console.log(req.files);
+//     res.send("업로드 성공");
+// })
+
+
+
+app.post("/upload", upload.single("img"), (req, res)=>{
+    console.log(req.body);
+    console.log(req.file);
+    res.send(req.file.filename);
+})
+
+
 
 app.get("/get", (req,res)=>{
     console.log(req.query);
@@ -48,13 +105,14 @@ app.post("/get/ajax", (req,res)=>{
 // })
 
 app.get("/get/axios", (req,res)=>{
-    console.log(req.require);
-    res.send(data, {
-        name:req.require.name,
-        gender:req.require.gender,
-        birth:req.require.birth,
-        month:req.require.month,
-        day:req.require.day
+    console.log(req.query);
+    res.send({
+        name:req.query.name,
+        gender:req.query.gender,
+        birth:req.query.birth,
+        month:req.query.month,
+        day:req.query.day,
+        interest:req.query.interest
     });
 })
 

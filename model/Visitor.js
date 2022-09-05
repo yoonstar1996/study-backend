@@ -41,7 +41,7 @@ exports.get_visitor_by_id = (id, cb) => {
     var sql = `SELECT * FROM visitor WHERE id=${id}`
     cnn.query(sql, (err, rows)=>{
         if(err) throw err;
-
+        // console.log(rows);
         cb(rows);
     })
 }

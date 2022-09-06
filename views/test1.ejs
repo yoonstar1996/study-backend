@@ -1,9 +1,292 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <div>반가워요</div>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // function go_convenient(){
+        //     console.log("편의점에 들어가서 어떤 음료를 살지 고민한다.");
+        // }
+
+        // function pick(){
+        //     setTimeout(function(){
+        //         console.log("고민이 끝났다!");
+        //         product = "콜라";
+        //         payment = 1500;
+        //     }, 3000);
+        // }
+
+        // function pay(product, payment) {
+        //     console.log(`${product}의 금액인 ${payment}원을 지불한다.`);
+        // }
+
+        // var product;
+        // var payment;
+        // go_convenient();
+        // pick();
+        // pay(product, payment);
+        
+        // function go_convenient(){
+        //     console.log("편의점에 들어가서 어떤 음료를 살지 고민한다.");
+        // }
+
+        // function pick(cb){
+        //     setTimeout(function(){
+        //         console.log("고민이 끝났다!");
+        //         product = "콜라";
+        //         payment = 1500;
+        //         cb(product, payment);
+        //     }, 3000);
+        // }
+
+        // function pay(product, payment) {
+        //     console.log(`${product}의 금액인 ${payment}원을 지불한다.`);
+        // }
+
+        // var product;
+        // var payment;
+        // go_convenient();
+        // pick(pay);
+
+        // function go_convenient(){
+        //     console.log("편의점에 들어가서 어떤 음료를 살지 고민한다.");
+        // }
+
+        // function pick(){
+        //     return new Promise(function(resolve, reject){
+        //         setTimeout(function(){
+        //         console.log("고민이 끝났다!");
+        //         product = "콜라";
+        //         payment = 1500;
+        //         resolve();
+        //     }, 3000);
+        //     })
+        // }
+
+        // function pay() {
+        //     console.log(`${product}의 금액인 ${payment}원을 지불한다.`);
+        // }
+
+        // var product;
+        // var payment;
+        // go_convenient();
+        // pick()
+        // .then(()=>{
+        //     pay();
+        // }).catch(()=>{
+        //     console.log("실패");
+        // })
+        
+        // async function exec(){
+        //     var product;
+        //     var payment;
+        //     go_convenient();
+        //     await pick();
+        //     pay();
+        // }
+        
+        // exec();
+
+
+        // function mainFunc(param1, param2, callback){
+        //     callback(result);
+        // }
+
+        // function callbackFunc(param){
+        //     console.log("콜백함수 입니다");
+        // }
+
+        // mainFunc(1, 2, callbackFunc);
+        //         /*위==아래*/
+        // mainFunc(1, 2, function(param){
+        //     console.log("콜백함수 입니다");
+        // });
+
+
+        // function promise1(flag) {
+        //     return new Promise ( function ( resolve, reject ) {
+        //         if (flag) {
+        //             resolve ( "promise 상태는 fulfilled. then으로 연결됩니다. 이때의 flag가 true 입니다." );
+        //         } else {
+        //             reject ( "promise 상태는 rejected. catch로 연결됩니다. 이때의 flag는 false입니다." );
+        //         }
+        //     })
+        // }
+
+        // promise1(true)
+        // .then((result)=>{
+        //     console.log("flag");
+        //     console.log(result);
+        // })
+        // .catch((err)=>{
+        //     console.log("catch");
+        //     console.log(err);
+        // })
+
+
+
+
+        // function add( n1, n2, cb){
+        //     setTimeout(function(){
+        //         var result = n1 + n2;
+        //         cb(result);
+        //     }, 1000)
+        // }
+
+        function add(n1, n2){
+            return new Promise(function(resolve, reject){
+                setTimeout(function(){
+                    var result = n1 + n2;
+                    resolve(result);
+                }, 1000)
+            })
+        }
+
+        // function mul(num, cb){
+        //     setTimeout(function(){
+        //         var result = num*3;
+        //         cb(result);
+        //     }, 700);
+        // }
+
+        function mul(num){
+            return new Promise(function(resolve, reject){
+                setTimeout(function(){
+                    var result = num*3;
+                    resolve(result);
+                }, 700);
+            })
+        }
+
+        // function sub(num, cb){
+        //     setTimeout(function(){
+        //         var result = num-2;
+        //         cb(result);
+        //     }, 500);
+        // }
+
+        function sub(num){
+            return new Promise(function(resolve, reject){
+                setTimeout(function(){
+                    var result = num-2;
+                    resolve(result);
+                }, 500);
+            })
+        }
+
+        // add(3, 2, function(result){
+        //     console.log("1 : ", result );
+        //     mul(result, function(result2){
+        //         console.log("2 : ", result2 );
+        //         sub(result2, function(result3){
+        //             console.log("3: ", result3);
+        //         });
+        //     })
+        // })
+
+        // add(3,2)
+        // .then((result)=>{
+        //     console.log("1: ", result);
+        //     return mul(result);
+        // }).then((result2)=>{
+        //     console.log("2: ", result2);
+        //     return sub(result2);
+        // }).then((result3)=>{
+        //     console.log("3: ", result3);
+        // })
+
+        // async function exec(){
+        // let adds = await add(3,2);
+        // console.log("1: ", adds);
+        // let muls = await mul(adds);
+        // console.log("2: ", muls);
+        // let subs= await sub(muls);
+        // console.log("3: ", subs);
+        // }
+
+        // exec();
+        
+        // function call(name, cb){
+        //     setTimeout(function(){
+        //         console.log(name);
+        //         cb(name);
+        //     },1000);
+        // }
+
+        function call(name){
+            return new Promise(function(resolve, reject){
+                setTimeout(function(){
+                    // console.log(name);
+                    resolve(name);
+                },1000);
+            })
+        }
+
+        // function back(cb){
+        //     setTimeout(function(){
+        //         console.log("back");
+        //         cb("back");
+        //     },1000);
+        // }
+
+        function back(resolve){
+            return new Promise(function(resolve,reject){
+                setTimeout(function(){
+                    // console.log("back");
+                    resolve("back");
+                },1000);
+            })
+        }
+
+        // function hell(cb){
+        //     setTimeout(function(){
+        //         cb("callback hell");
+        //     },1000);
+        // }
+
+        function hell(resolve){
+            return new Promise(function(resolve,reject){
+                setTimeout(function(){
+                    resolve("callback hell");
+                },1000);
+            })
+        }
+
+        // call('kim',function(name){
+        //     console.log(name+"반가워");
+        //     back(function(txt){
+        //         console.log(txt+"을 실행했구나");
+        //         hell(function(message){
+        //             console.log("여기는"+message);
+        //         });
+        //     });
+        // });
+
+        // call('yoon')
+        // .then((name)=>{
+        //     console.log(name + "반가워");
+        //     return back();
+        // }).then((txt)=>{
+        //     console.log(txt+"을 실행했구나");
+        //     return hell();
+        // }).then((message)=>{
+        //     console.log("여기는"+message);
+        // })
+
+        async function exec(){
+        let user = await call('yoon');
+        console.log(user+"님 환영합니다.")
+        let txts = await back();
+        console.log(txts+"을 실행했구나")
+        let messages = await hell();
+        console.log("여기는"+messages)
+        }
+
+        exec();
+    </script>
+</body>
 </html>

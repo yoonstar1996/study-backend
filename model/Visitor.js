@@ -17,6 +17,18 @@ exports.get_visitor = (cb) => {
     })
 }
 
+exports.get_visitor = () => {
+    return new Promise((resolve,reject)=>{
+        var sql = 'SELECT * FROM visitor';
+        cnn.query(sql, (err, rows)=>{
+            if(err) throw err;
+            // console.log("visitors : ", rows);
+    
+            resolve(rows);
+        })
+    })
+}
+
 exports.post_visitor = (data, cb) => {
     var sql = `INSERT INTO visitor (name, comment) values('${data.name}','${data.comment}')`;
     cnn.query(sql, (err, result)=>{

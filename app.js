@@ -36,8 +36,12 @@ const port = 8000; // 3000, 8080 셋 중 하나 사용
     //     res.render("main");
     // })
     
+// app.get("/", (req,res)=>{
+//     res.render("main2");
+// })
+
 app.get("/", (req,res)=>{
-    res.render("main2");
+    res.render("test1");
 })
 
 // app.post("/upload", upload.single("userfile"), (req, res)=>{ /**single메소드 사용시 한개 업로드 가능 */

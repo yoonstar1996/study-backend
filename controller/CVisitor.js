@@ -8,6 +8,20 @@ exports.visitor = (req, res) => {
     });
 }
 
+exports.visitor = async (req, res) => {
+    Visitor.get_visitor()
+    .then((result)=>{
+        // console.log(result);
+        res.render("visitor", {data:result});
+    })
+
+    /*위 == 아래*/ 
+    var result = await Visitor.get_visitor();
+    // console.log(result);
+    res.render("visitor", {data:result});
+
+}
+
 exports.post_visitor = (req, res) => {
     Visitor.post_visitor(req.body, function(result){
         var data = {

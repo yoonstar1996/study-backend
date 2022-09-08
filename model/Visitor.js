@@ -39,6 +39,18 @@ exports.post_visitor = (data, cb) => {
     })
 }
 
+exports.post_visitor = (data) => {
+    return new Promise((resolve, reject)=>{
+        var sql = `INSERT INTO visitor (name, comment) values('${data.name}','${data.comment}')`;
+        cnn.query(sql, (err, result)=>{
+            if(err) throw err;
+            // console.log("visitors : ", result);
+    
+            resolve(result.insertId);
+        })
+    })
+}
+
 exports.delete_visitor = (id, cb) => {
     var sql = `DELETE FROM visitor WHERE id=${id}`
     cnn.query(sql, (err, result)=>{

@@ -34,12 +34,16 @@
           data: data11, // params <> data
         }).then((response) => {
           if (response.data) {
+            alert('로그인 성공');
             window.location = "/";
             // $("form").addClass("d-none");
             // $("#1").val("");
             // $("#2").val("");
             // $(".welcome").html(`${data11.ID}님 환영합니다.`);
             // $(".logout").html(`<button type="button" onclick="logout()">로그아웃</button>`);
+          } else {
+            alert('로그인 실패');
+            window.location = "/";
           }
         });
       }

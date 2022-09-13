@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const multer = require("multer");
 const path = require("path");
+const cookieParser = require('cookie-parser');
 app.set("view engine", "ejs");
 
 // app.use( express.static( 'public' ) );
@@ -13,22 +14,22 @@ app.use( '/uploads', express.static( 'uploads' ) );
 const upload = multer({
     storage: multer.diskStorage({
         destination(req, file, done){ /*목적지를 정해주는 함수*/
-            done( null, 'uploads/');
-        },
-        filename(req, file, done) {  /*파일 이름을 정해주는 함수*/
-            userid = req.body.id;
-            const ext = path.extname(file.originalname); /*ext = 확장자를 가져온다.*/
-            // done(null, path.basename(file.originalname, ext) /*파일 이름만 가져온다*/ + ext);
-            done(null, userid + ext);
-        },
-    }),
-    limits: { fileSize: 5*1024*1024 }, /*파일 용량 제한 5MB*/
+        done( null, 'uploads/');
+    },
+    filename(req, file, done) {  /*파일 이름을 정해주는 함수*/
+    userid = req.body.id;
+    const ext = path.extname(file.originalname); /*ext = 확장자를 가져온다.*/
+    // done(null, path.basename(file.originalname, ext) /*파일 이름만 가져온다*/ + ext);
+    done(null, userid + ext);
+},
+}),
+limits: { fileSize: 5*1024*1024 }, /*파일 용량 제한 5MB*/
 })
 
 
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({extended:true}));
 app.use(express.json());
-
+app.use(cookieParser());
 
 const port = 8000; // 3000, 8080 셋 중 하나 사용
 
@@ -40,9 +41,9 @@ const port = 8000; // 3000, 8080 셋 중 하나 사용
 //     res.render("main2");
 // })
 
-app.get("/", (req,res)=>{
-    res.render("test1");
-})
+// app.get("/", (req,res)=>{
+//     res.render("test1");
+// })
 
 // app.post("/upload", upload.single("userfile"), (req, res)=>{ /**single메소드 사용시 한개 업로드 가능 */
     // console.log(req.body);
@@ -74,15 +75,15 @@ app.post("/upload", upload.single("img"), (req, res)=>{
     console.log(req.body);
     console.log(req.file);
     res.send(req.file.filename);
-})
+});
 
 
 
-app.get("/get", (req,res)=>{
-    console.log(req.query);
-    res.render("main", {
-    });
-})
+// app.get("/get", (req,res)=>{
+//     console.log(req.query);
+//     res.render("main", {
+//     });
+// })
 
 app.post("/get/ajax", (req,res)=>{
     console.log(req.body);
@@ -90,7 +91,7 @@ app.post("/get/ajax", (req,res)=>{
         name: req.body.name
     }
     res.send(data);
-})
+});
 
 // var id = "codingon";
 // var pw = "123456";
@@ -118,7 +119,7 @@ app.get("/get/axios", (req,res)=>{
         day:req.query.day,
         interest:req.query.interest
     });
-})
+});
 
 app.post("/post", (req,res)=>{
     console.log(req.body);
@@ -127,7 +128,7 @@ app.post("/post", (req,res)=>{
         gender: req.body.gender,
         birth: req.body.birth
     });
-})
+});
 
 // app.get("/", (req, res)=>{
     // res.sendFile(__dirname+"/test.html");
@@ -145,6 +146,35 @@ app.post("/post", (req,res)=>{
 // })
 // localhost:8000/test
 
+// app.get("/", (req, res)=>{
+//     res.cookie('key1', 'value1', {
+//         maxAge: 10000, // ms 단위 (6000 = 1초)
+//         /*expires: ,*/ //GMT 시간 설정
+//         path: "/", // localhost:8000/~~~ 모든 주소에 적용
+//         /*secure: true,*/ // https 에서만 (false가 기본 값)
+//         /*httpOnly: true,*/ // ejs파일에서 document.cookie로 접근 불가능
+//     });
+//     res.render("index");
+// });
+
+app.get("/", (req, res)=>{
+    
+    res.render("cookie실습", {
+        cookie: req.cookies.key1
+    });
+});
+
+app.post("/get", (req, res)=>{
+    res.cookie('key1', 'value1', {
+        maxAge: 60000, // ms 단위 (6000 = 1초)
+        /*expires: ,*/ //GMT 시간 설정
+        /*path: "/",*/ // localhost:8000/~~~ 모든 주소에 적용
+        /*secure: true,*/ // https 에서만 (false가 기본 값)
+        httpOnly: true // ejs파일에서 document.cookie로 접근 불가능}
+    });
+    res.send(req.cookies);
+});
+
 app.listen(port, ()=>{
     console.log("server open: ", port);
-})
+});

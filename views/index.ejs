@@ -1,0 +1,12 @@
+hello world
+<script>
+    console.log(document.cookie);
+    
+    document.cookie = "user=kdt; expires=13 Sep 2022 13:57:00 GMT; path=/";
+    document.cookie = "user2=kdt2; expires=13 Sep 2022 13:57:00 GMT; path=/";
+
+    console.log(document.cookie);
+
+    var cookie = document.cookie.split(";");
+    
+</script>

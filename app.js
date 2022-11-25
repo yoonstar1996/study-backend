@@ -210,13 +210,10 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-app.get("/logout", (req, res) => {   // 로그아웃시 url /logout 남는거 물어보기
+app.get("/logout", (req, res) => {
   delete req.session.user;
-  if (req.session.user) {
-    res.render("main3", { login: true, name: req.session.user });
-  } else {
-    res.render("main3", { login: false });
-  }
+
+  res.redirect("/");
 });
 
 app.post("/login", (req, res) => {
